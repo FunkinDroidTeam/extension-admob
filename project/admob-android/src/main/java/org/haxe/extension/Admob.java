@@ -143,7 +143,12 @@ public class Admob extends Extension
 					AdvertisingIdClient.Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(mainContext);
 
 					if (!adInfo.isLimitAdTrackingEnabled())
-						testDeviceIds.add(adInfo.getId().toUpperCase());
+					{
+						testDeviceIds.add(adInfo.getId());
+
+						if (callback != null)
+							callback.call("onStatus", new Object[]{ "ADV_ID", adInfo.getId() });
+					}
 				}
 				catch (Exception e)
 				{
